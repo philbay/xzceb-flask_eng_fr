@@ -22,7 +22,7 @@ language_translator.set_service_url(url)
 
 def englishToFrench(englishText):
     """ This method translates from english to french """
-    frenchText=''
+    frenchText=[]
     try:
     # Invoke a method
         translation = language_translator.translate(
@@ -32,12 +32,13 @@ def englishToFrench(englishText):
     except ApiException as ex:
         print 
         "Method failed with status code " + str(ex.code) + ": " + ex.message
-   
+    frenchText = json.loads(frenchText)
+    frenchText = frenchText["translations"][0]['translation']
     return frenchText
 
 def frenchToEnglish(frenchText):
     """ This method translates from french to english """
-    englishText=''
+    englishText=[]
     try:
     # Invoke a method
         translation = language_translator.translate(
@@ -47,8 +48,6 @@ def frenchToEnglish(frenchText):
     except ApiException as ex:
         print 
         "Method failed with status code " + str(ex.code) + ": " + ex.message
-    
+    englishText = json.loads(englishText)
+    englishText = englishText["translations"][0]['translation']
     return englishText
-
-print(englishToFrench("Good morning sir"))
-print(frenchToEnglish("Fatigue, nervosité, fatigue musculaire sont souvent les premiers signes d'un apport alimentaire insuffisant en magnésium"))
