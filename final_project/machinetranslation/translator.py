@@ -1,9 +1,10 @@
+""" This module uses ibm_watson API to translate fr-en and en-fr """
 import json
-from ibm_watson import LanguageTranslatorV3
-from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 import os
-from dotenv import load_dotenv
+from ibm_watson import LanguageTranslatorV3
 from ibm_watson import ApiException
+from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -18,36 +19,33 @@ language_translator = LanguageTranslatorV3(
 )
 
 language_translator.set_service_url(url)
-#language_translator.set_disable_ssl_verification(True) # disabling ssl verification
 
-def englishToFrench(englishText):
+def english_to_french(english_text):
     """ This method translates from english to french """
-    frenchText=[]
+    french_text=[]
     try:
     # Invoke a method
         translation = language_translator.translate(
-        text=englishText, 
+        text=english_text,
         model_id='en-fr').get_result()
-        frenchText = json.dumps(translation, indent=2, ensure_ascii=False)
+        french_text = json.dumps(translation, indent=2, ensure_ascii=False)
     except ApiException as ex:
-        print 
-        "Method failed with status code " + str(ex.code) + ": " + ex.message
-    frenchText = json.loads(frenchText)
-    frenchText = frenchText["translations"][0]['translation']
-    return frenchText
+        print("Method failed with status code " + str(ex.code) + ": " + ex.message)
+    french_text = json.loads(french_text)
+    french_text = french_text["translations"][0]['translation']
+    return french_text
 
-def frenchToEnglish(frenchText):
+def french_to_english(french_text):
     """ This method translates from french to english """
-    englishText=[]
+    english_text=[]
     try:
     # Invoke a method
         translation = language_translator.translate(
-        text=frenchText, 
+        text=french_text,
         model_id='fr-en').get_result()
-        englishText = json.dumps(translation, indent=2, ensure_ascii=False)
+        english_text = json.dumps(translation, indent=2, ensure_ascii=False)
     except ApiException as ex:
-        print 
-        "Method failed with status code " + str(ex.code) + ": " + ex.message
-    englishText = json.loads(englishText)
-    englishText = englishText["translations"][0]['translation']
-    return englishText
+        print("Method failed with status code " + str(ex.code) + ": " + ex.message)
+    english_text = json.loads(english_text)
+    english_text = english_text["translations"][0]['translation']
+    return english_text
