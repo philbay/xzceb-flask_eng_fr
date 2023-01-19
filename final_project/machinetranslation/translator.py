@@ -23,6 +23,8 @@ language_translator.set_service_url(url)
 def english_to_french(english_text):
     """ This method translates from english to french """
     french_text=[]
+    if len(english_text) == 0:
+        return ""
     try:
     # Invoke a method
         translation = language_translator.translate(
@@ -38,6 +40,8 @@ def english_to_french(english_text):
 def french_to_english(french_text):
     """ This method translates from french to english """
     english_text=[]
+    if len(french_text) == 0:
+        return ""
     try:
     # Invoke a method
         translation = language_translator.translate(
